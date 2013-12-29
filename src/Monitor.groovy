@@ -1,4 +1,5 @@
-def config = new ConfigSlurper().parse(URI.create("file:///Users/michaelmunhall/Documents/workspace/ds18b20-monitor/conf/local.groovy").toURL())
+def configFilePath = args[0]
+def config = new ConfigSlurper().parse(URI.create("file://${configFilePath}").toURL())
 def alertHistory = []
 
 while (true) {
