@@ -10,12 +10,14 @@ while (true) {
     def cTemp = (data.readLines()[1].split("=")[1]) as float
     def fTemp = ((cTemp / 1000) * 9 / 5) + 32
 
+    def now = new Date()
+
     // if temp is out of range, send an alert and log the event
     if (fTemp < config.temps.min || fTemp > config.temps.max) {
-        def now = new Date()
         println "$now Alert: $fTemp"
         alertHistory << now
     } else {
+        println "$now OK: $fTemp"
         alertHistory.clear() // if all is good, then clear history
     }
 
