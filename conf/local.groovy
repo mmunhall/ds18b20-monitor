@@ -17,7 +17,10 @@ temps {
     max = 70
 }
 
-messaging {
+alerting {
+    // alert type. one of "println" or "sms". println is useful for debugging.
+    type = "sms"
+
     // the number to send SMS alerts to
     sms = "3035149144"
 
