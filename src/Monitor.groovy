@@ -1,5 +1,3 @@
-
-
 def configFilePath = args[0]
 def config = new ConfigSlurper().parse(URI.create("file://${configFilePath}").toURL())
 def alertHistory = []
@@ -20,7 +18,7 @@ while (true) {
         if (config.alerting.type == "println") {
             println message
         } else if (config.alerting.type == "sms") {
-            sendSms(message)
+            sendSms(config.alerting.sms, message)
         }
         alertHistory << now
     } else {
@@ -38,15 +36,18 @@ while (true) {
     sleep config.polling.interval
 }
 
-def sendSms(message) {
-    final HttpURLConnection connection = new URL('http://www.FreeSMSGateway.com/api_send').openConnection()
+/**
+ * Sends SMS
+ * @param config Configuration parameters
+ * @param message The message to send
+ * @return null
+ */
+def sendSms(config, message) {
+    HttpURLConnection connection = new URL(config.post.url).openConnection()
     connection.setDoOutput(true)
+    connection.setRequestProperty("Authorization", "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(config.post.auth.getBytes()));
     connection.outputStream.withWriter { Writer writer ->
-        writer << "access_token=fba32abf499ab2c834f33a719fa0967f&message=${message}&send_to=post_contacts&post_contacts=3035149144"
-        println writer
+        writer << "From=+${config.sender}&To=+${config.recipient}&Body=${message}"
     }
-
-    String response = connection.inputStream.withReader { Reader reader -> reader.text }
-    println response
-
+    connection.inputStream.withReader { Reader reader -> reader.text }
 }
