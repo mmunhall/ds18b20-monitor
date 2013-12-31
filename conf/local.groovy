@@ -21,20 +21,20 @@ alerting {
     // alert type. one of "println" or "sms". println is useful for debugging.
     type = "println"
 
-    // the details of the sms post
+    // the details of the sms post. required only if type = "sms"
     sms {
 
         // post info
         post {
-            url = "https://api.twilio.com/2010-04-01/Accounts/ACc73f05977e845cae4841f0baf8134f6a/SMS/Messages.json"
-            auth = "ACc73f05977e845cae4841f0baf8134f6a:718c427c3a41eedcd6fff40fb523a2de"
+            url = ""
+            auth = ""
         }
 
         // who is sending the message
-        sender = "13039639497"
+        sender = ""
 
         // who gets the text message
-        recipient = "13035149144"
+        recipient = ""
     }
 
 
