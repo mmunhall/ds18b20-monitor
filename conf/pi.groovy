@@ -6,7 +6,7 @@ data {
 polling {
     // how often to query for the current temperature, in milliseconds. we use milliseconds because it is easier to test.
     // to convert milliseconds to minutes, multiply by 60000.
-    interval = 5000
+    interval = 180000 // 3 minutes
 }
 
 temps {
