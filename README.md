@@ -40,9 +40,11 @@ This section addresses all the steps needed to build and configure the device, a
 
 ###Create a Twilio Account###
 
-Create a free/trial account a twilio.com. Make note of the phone number, account SID and authorization token. These properties will be used later when configuring the monitor script.
+Create a free/trial account at [Twilio](http://www.twilio.com). Make note of the phone number, account SID and authorization token. These properties will be used later when configuring the monitor script.
 
 ###Circuit Assembly###
+
+TODO
 
 ###Pi Configuration###
 
@@ -82,7 +84,7 @@ Install Groovy by executing `sudo apt-get install groovy`. Verify the installati
 There are two files in this repository that are used: `src/Monitor.groovy` and `conf/config.groovy`. Copy these files to any location on the Pi, a subdirectory of your home directory is fine. 
 Alternatively, if git is installed on the Pi (it is by default in Wheezy 7.*), executing `git clone https://github.com/mmunhall/ds18b20-monitor.git` will clone the entire project, including this README, into a subdirectory called dsb1820-monitor. This is probably easier than downloading the files and using `scp` or FTP to then move the files.
 
-`Monitor.groovy` is the script that queries the temperature sensor and sends SMS notifications. `config.groovy` contains the configuration parameters that are used by `Monitor.groovy`. Open `config.groovy` and review each configuration parameter. Each parameter is commented well enough to determine how it is used, so detailed explanations are not provided here. The most important paramters to change are the ones related to the SMS service. Set the value of those parameters to match your Twilio account information.
+`Monitor.groovy` is the script that queries the temperature sensor and sends SMS notifications. `config.groovy` contains the configuration parameters that are used by `Monitor.groovy`. Open `config.groovy` and review each configuration parameter. Each one is commented well enough to determine how it is used, so detailed explanations are not provided here. The most important parameters to change are the ones related to the SMS service. Set the value of each of those parameters to match your Twilio account information.
 
 ###Usage###
 
