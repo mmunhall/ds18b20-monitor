@@ -5,6 +5,7 @@ Overview
 --------
 
 ![Overview](doc/overview.jpg "The assembled device")
+![In Use](doc/in_use.jpg "In use")
 
 ds18b20-monitor is a personal electronics project used to monitor temperature and send SMS notifications when the temperature falls below a lower limit or reaches an upper limit. I am personally using the device to monitor the temperature of my smoker and to alert me when the temperature inside the smoker goes below 205 degrees F or above 240 - the ideal temperature range to smoke a beef brisket. My briskets take about 16 hours, so I can start the brisket when I go to bed and let my phone tell me if I need to get up to adjust the temperature of the smoker.
 
@@ -88,5 +89,6 @@ Alternatively, if git is installed on the Pi (it is by default in Wheezy 7.*), e
 
 ###Usage###
 
+TODO
 
 
