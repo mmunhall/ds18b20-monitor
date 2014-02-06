@@ -45,7 +45,7 @@ Create a free/trial account at [Twilio](http://www.twilio.com). Make note of the
 
 ###Circuit Assembly###
 
-TODO
+The circuit is quite easy to assemble. Adafruit has a nice set of [instructions for assembling the circuit](http://learn.adafruit.com/downloads/pdf/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing.pdf). Ignore the sections about software and focus on just the hardware.
 
 ###Pi Configuration###
 
