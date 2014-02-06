@@ -7,7 +7,7 @@ Overview
 ![Overview](doc/overview.jpg "The assembled device")
 ![In Use](doc/in_use.jpg "In use")
 
-ds18b20-monitor is a personal electronics project used to monitor temperature and send SMS notifications when the temperature falls below a lower limit or reaches an upper limit. I am personally using the device to monitor the temperature of my smoker and to alert me when the temperature inside the smoker goes below 205 degrees F or above 240 - the ideal temperature range to smoke a beef brisket. My briskets take about 16 hours, so I can start the brisket when I go to bed and let my phone tell me if I need to get up to adjust the temperature of the smoker.
+ds18b20-monitor is a personal electronics project used to monitor temperature and send SMS notifications when the temperature falls below a lower limit or reaches an upper limit. I am personally using the device to monitor the temperature of my smoker and to alert me when the temperature inside the smoker goes below 205 degrees F or above 240 - the ideal temperature range to smoke a beef brisket. My briskets take about 16 hours, so I can start the brisket when I go to bed and let my phone tell me if I need to get up to adjust the temperature of the smoker. The device can be used to monitor the temperature of just about anything under 257 degrees F, though. I plan to use the sensor to monitor the mash temperature of my next batch of homebrew.
 
 The hardware device consists of a Raspberry Pi model B with a miniature Wifi module and a breadboard with a circuit containing the temperature sensor, the ds18b20. The circuit is connected to the Pi's GPIO.
 
@@ -15,7 +15,7 @@ The software on the Pi is a simple Groovy script with a configuration file for s
 
 Keep in mind that this project is in its infancy and is therefore very crude and just about all of the setup is a manual process. I may or may not continue to tinker with the project depending on how useful it is to me in its current state.
 
-Some experience with Linux is assumed. I've tried not to be too verbose in these instructions
+Some experience with Linux is assumed. I've tried not to be too verbose in these instructions.
 
 Parts List
 ----------
@@ -87,8 +87,40 @@ Alternatively, if git is installed on the Pi (it is by default in Wheezy 7.*), e
 
 `Monitor.groovy` is the script that queries the temperature sensor and sends SMS notifications. `config.groovy` contains the configuration parameters that are used by `Monitor.groovy`. Open `config.groovy` and review each configuration parameter. Each one is commented well enough to determine how it is used, so detailed explanations are not provided here. The most important parameters to change are the ones related to the SMS service. Set the value of each of those parameters to match your Twilio account information.
 
-###Usage###
+The first parameter, data.source, will contain the path to a file that will be used to read the sensor data. The value of that parameter will be explained in the Usage section, next.
 
-TODO
+Usage
+-----
+
+###Register the Module###
+
+To begin using the device, the sensor must be registered in the Linux kernel. Log into the Pi and execute the commands below. This must be done every time the Pi is started (unless you add the commands to a startup script).
+
+	sudo modprobe w1-gpio
+	sudo modprobe w1-therm
+	
+###Update config.groovy With the Value For data.source###
+
+The path to the data file must be entered in the config.groovy file. This step only needs to happen once. On the Pi, list the contents of the /sys/bus/w1/devices directory:
+
+	ls /sys/bus/w1/devices
+	
+One of the directories listed will begin with 28-. This is the serial number of the temperature sensor. Update the data.source parameter in the config.groovy script with `"/sys/bus/w1/devices/[your serial number]/w1_slave"`, replacing [your serial number] with the serial number you noted in the previous step.
+
+###Test the Setup (Manually Read the Sensor)###
+
+At any time, the temperature can be read by reading the contents of w1_slave.
+
+	cat /sys/bus/w1/devices/[your serial number]/w1_slave
+	
+The last number on the second line is the temperature in Celcius and without a decimal point. So, for example, a value of 112778 would be 112.778 degrees, or 235 degrees Fahrenheit.
+
+###Start the Script###
+
+The last step is to run the Monitor.groovy script. Navigate to the script's location and run groovy, specifying the script and the full path to hte config file. Depending on where the script is stored, your commands will look a little different than mine:
+
+	cd /home/pi/ds18b20-monitor/src
+	groovy Monitor.groovy /home/pi/ds18b20-monitory/conf/pi.groovy
+
 
 
